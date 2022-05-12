@@ -18,7 +18,7 @@ services:
       timeout: 5s
       retries: 5
   hasura:
-    image: hasura/graphql-engine:v2.5.2
+    image: hasura/graphql-engine:v2.6.1
     container_name: hasura
     restart: always
     ports:

@@ -1,7 +1,6 @@
 tasks:
   - init: docker-compose up
 ports:
-  ## Hasura Instance
   - port: 8080
     visibility: public
     onOpen: open-browser
