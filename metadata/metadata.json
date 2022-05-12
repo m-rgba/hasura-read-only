@@ -1,0 +1,77 @@
+{
+  "resource_version": 4,
+  "metadata": {
+    "version": 3,
+    "sources": [
+      {
+        "name": "metadata_database",
+        "kind": "postgres",
+        "tables": [],
+        "configuration": {
+          "connection_info": {
+            "use_prepared_statements": true,
+            "database_url": {
+              "from_env": "HASURA_GRAPHQL_DATABASE_URL"
+            },
+            "isolation_level": "read-committed",
+            "pool_settings": {
+              "connection_lifetime": 600,
+              "retries": 1,
+              "idle_timeout": 180,
+              "max_connections": 50
+            }
+          }
+        }
+      },
+      {
+        "name": "read_database",
+        "kind": "postgres",
+        "tables": [
+          {
+            "table": {
+              "schema": "_helloworld",
+              "name": "article"
+            },
+            "object_relationships": [
+              {
+                "name": "author",
+                "using": {
+                  "foreign_key_constraint_on": "author_id"
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "_helloworld",
+              "name": "author"
+            },
+            "array_relationships": [
+              {
+                "name": "articles",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "author_id",
+                    "table": {
+                      "schema": "_helloworld",
+                      "name": "article"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "configuration": {
+          "connection_info": {
+            "use_prepared_statements": false,
+            "database_url": {
+              "from_env": "HASURA_GRAPHQL_DATABASE_URL"
+            },
+            "isolation_level": "read-committed"
+          }
+        }
+      }
+    ]
+  }
+}
