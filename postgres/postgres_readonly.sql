@@ -79,8 +79,10 @@ INSERT INTO "_helloworld"."article" ("author_id", "rating", "title") VALUES
 -- SAMPLE READ-ONLY USER
 CREATE ROLE readaccess;
 GRANT CONNECT ON DATABASE read_only_db TO readaccess;
-REVOKE USAGE ON SCHEMA public FROM readaccess;
 GRANT USAGE ON SCHEMA _helloworld TO readaccess;
 GRANT SELECT ON ALL TABLES IN SCHEMA _helloworld TO readaccess;
 CREATE USER read_user WITH PASSWORD 'read_password';
 GRANT readaccess TO read_user;
+
+-- REVOKE PUBLIC PERMISSIONS ON ALL
+REVOKE ALL ON SCHEMA public FROM public;
